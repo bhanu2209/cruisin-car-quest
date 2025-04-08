@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { Car, CarFilters as CarFiltersType, SortDirection } from '@/types/car';
 import { getCars } from '@/services/carService';
-import { isInWishlist, toggleWishlist } from '@/services/wishlistService';
+import { getWishlist, toggleWishlist } from '@/services/wishlistService';
 import { useToast } from '@/hooks/use-toast';
 import Navbar from '@/components/Navbar';
 import CarCard from '@/components/CarCard';
@@ -60,8 +59,8 @@ const Index = () => {
   
   // Load wishlist from localStorage
   useEffect(() => {
-    const storedWishlist = isInWishlist(-1); // Hack to just get the wishlist array
-    setWishlist(storedWishlist ? storedWishlist : []);
+    const storedWishlist = getWishlist();
+    setWishlist(storedWishlist);
   }, []);
   
   const handleFiltersChange = (newFilters: CarFiltersType) => {
